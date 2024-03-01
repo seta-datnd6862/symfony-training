@@ -4,15 +4,15 @@ namespace App\Controller;
 
 use Doctrine\DBAL\DriverManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Alias;
 
 class UserController extends AbstractController
 {
-    #[Route('/user')]
-    public function request($request)
+    #[Route('/user', name: 'user_index')]
+    public function request(Request $request)
     {
-        dd($request);
         $connection = $this->getConnection();
 
         $tableExists = $this->executeRequest("SELECT * FROM information_schema.tables WHERE table_schema = 'symfony' AND table_name = 'user' LIMIT 1;", $connection);
@@ -31,9 +31,8 @@ class UserController extends AbstractController
                 $this->executeRequest("DELETE FROM user WHERE id = " . $id, $connection);
             }
         } else if ($request->getMethod() == "POST") {
-            $firstname = $request->get("firstname");
-            $lastname = $request->get("lastname");
-            $address = $request->get("address");
+            $email = $request->get("email");
+            $password = $request->get("password");
 
             $this->executeRequest("INSERT INTO user(id, data) values(" . time() . ", '" . $firstname . " - " . $lastname . " - " . $address . "');", $connection);
         }

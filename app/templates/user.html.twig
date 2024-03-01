@@ -67,18 +67,6 @@
 </head>
 <body>
 
-<h1>Add user form</h1>
-
-<form action="/user" method="POST">
-    <label for="firstname">First name:</label><br>
-    <input type="text" id="firstname" name="firstname"><br>
-    <label for="lastname">Last name:</label><br>
-    <input type="text" id="lastname" name="lastname"><br>
-    <label for="address">Address:</label><br>
-    <input type="text" id="address" name="address"><br><br>
-    <input type="submit" value="Add user">
-</form>
-
 <h1>User list</h1>
 
 <table>
@@ -88,7 +76,7 @@
     </tr>
     {% for user in users %}
         <tr>
-            <td>{{ user['data'] }}</td>
+            <td>{{ user['email'] }}</td>
             <td><a href="/user?action=delete&id={{ user['id'] }}">Delete</a></td>
         </tr>
     {% endfor %}
